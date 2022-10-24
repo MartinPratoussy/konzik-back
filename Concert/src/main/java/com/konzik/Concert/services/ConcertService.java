@@ -1,4 +1,4 @@
-package com.konzik.Concert.Repositories.services;
+package com.konzik.Concert.services;
 
 import com.konzik.Common.Concert;
 import com.konzik.Concert.Repositories.ConcertRepository;

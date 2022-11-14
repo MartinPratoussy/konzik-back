@@ -1,15 +1,14 @@
 package com.konzik.Common;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
-
 @Entity
+@Table(name = "concerts")
 public class Concert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     private String date;
     private String artist; // TODO: make a whole Artist entity
@@ -19,7 +18,7 @@ public class Concert {
     private String country;
 
     @ManyToMany(mappedBy = "planning")
-    private List<Long> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     public Concert() {
 

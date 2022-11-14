@@ -54,7 +54,7 @@ public class ConcertController {
         return "concertForm";
     }
 
-    @PostMapping("/all/delete")
+    @PostMapping("/all/find/{id}/delete")
     public String deleteConcert(@RequestParam String id) {
         service.deleteConcert(id);
         return "redirect:/planning";

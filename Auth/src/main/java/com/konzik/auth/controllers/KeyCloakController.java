@@ -21,8 +21,8 @@ public class KeyCloakController {
         return "User Added Successfully.";
     }
 
-    @GetMapping(path = "/{userName}")
-    public List<UserRepresentation> getUser(@PathVariable("userName") String username) {
+    @GetMapping(path = "/find/{username}")
+    public List<UserRepresentation> getUser(@PathVariable("username") String username) {
         List<UserRepresentation> user = service.getUser(username);
 
         return user;

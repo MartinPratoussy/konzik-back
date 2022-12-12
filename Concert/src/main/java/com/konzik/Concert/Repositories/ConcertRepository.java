@@ -1,7 +1,6 @@
 package com.konzik.Concert.Repositories;
 
-import com.konzik.Common.Concert;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import com.konzik.common.models.Concert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

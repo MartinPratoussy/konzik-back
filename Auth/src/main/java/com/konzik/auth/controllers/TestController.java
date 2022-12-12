@@ -1,37 +1,35 @@
 package com.konzik.auth.controllers;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.RolesAllowed;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestController {
-
-    @RequestMapping(value = "/anonymous", method = RequestMethod.GET)
-    public ResponseEntity<String> getAnonymous() {
-        return ResponseEntity.ok("Hello Anonymous");
+    @GetMapping("/all")
+    public String allAccess() {
+        return "Public Content.";
     }
 
-    @RolesAllowed("user")
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResponseEntity<String> getUser(@RequestHeader String Authorization) {
-        return ResponseEntity.ok("Hello User");
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public String userAccess() {
+        return "User Content.";
     }
 
-    @RolesAllowed("admin")
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ResponseEntity<String> getAdmin(@RequestHeader String Authorization) {
-        return ResponseEntity.ok("Hello Admin");
+    @GetMapping("/mod")
+    @PreAuthorize("hasRole('MODERATOR')")
+    public String moderatorAccess() {
+        return "Moderator Board.";
     }
 
-    @RolesAllowed({"admin", "user"})
-    @RequestMapping(value = "/all-user", method = RequestMethod.GET)
-    public ResponseEntity<String> getAllUser(@RequestHeader String Authorization) {
-        return ResponseEntity.ok("Hello All User");
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminAccess() {
+        return "Admin Board.";
     }
 }

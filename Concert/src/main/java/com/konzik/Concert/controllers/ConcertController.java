@@ -1,6 +1,6 @@
 package com.konzik.Concert.controllers;
 
-import com.konzik.Common.Concert;
+import com.konzik.common.models.Concert;
 import com.konzik.Concert.services.ConcertService;
 import com.konzik.Concert.Repositories.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;

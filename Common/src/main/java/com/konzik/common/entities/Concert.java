@@ -1,7 +1,7 @@
 package com.konzik.common.entities;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(name = "concerts")
 public class Concert {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String date;
     private String artist; // TODO: make a whole Artist entity

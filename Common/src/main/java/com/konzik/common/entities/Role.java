@@ -1,14 +1,13 @@
 package com.konzik.common.entities;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "konzik_roles")
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Enumerated(EnumType.STRING)

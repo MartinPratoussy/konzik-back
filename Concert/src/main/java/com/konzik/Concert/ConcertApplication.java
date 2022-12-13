@@ -8,16 +8,18 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.konzik.common"})
 @EnableDiscoveryClient
-@ComponentScan("com.konzik.common.*")
-@EntityScan("com.konzik.common.*")
+@EnableJpaRepositories(basePackages = {"com.konzik.common.repositories"})
+@ComponentScan(basePackages = {"com.konzik.common"})
+@EntityScan(basePackages = {"com.konzik.common.entities"})
 public class ConcertApplication {
 
 	public static void main(String[] args) {

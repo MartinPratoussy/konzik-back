@@ -1,12 +1,14 @@
 package com.konzik.Concert.controllers;
 
-import com.konzik.common.models.Concert;
+import com.konzik.common.entities.Concert;
 import com.konzik.Concert.services.ConcertService;
-import com.konzik.Concert.Repositories.ConcertRepository;
+import com.konzik.common.repositories.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "api/concert")
@@ -36,7 +38,7 @@ public class ConcertController {
     }
 
     @GetMapping("/all/find/{id}")
-    public Concert findConcertById(@PathVariable("id") Long id) {
+    public Concert findConcertById(@PathVariable("id") UUID id) {
         return service.findConcertById(id);
     }
 

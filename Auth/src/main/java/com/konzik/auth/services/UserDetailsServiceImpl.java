@@ -1,6 +1,6 @@
 package com.konzik.auth.services;
 
-import com.konzik.common.models.User;
+import com.konzik.common.entities.User;
 import com.konzik.common.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

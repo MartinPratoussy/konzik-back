@@ -1,4 +1,4 @@
-package com.konzik.common.models;
+package com.konzik.common.entities;
 
 public enum ERole {
     ROLE_USER,

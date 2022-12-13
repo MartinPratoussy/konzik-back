@@ -1,16 +1,17 @@
-package com.konzik.common.models;
+package com.konzik.common.entities;
 
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "concerts")
 public class Concert {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String date;
     private String artist; // TODO: make a whole Artist entity
     private String genre;
@@ -34,7 +35,7 @@ public class Concert {
         this.country = country;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

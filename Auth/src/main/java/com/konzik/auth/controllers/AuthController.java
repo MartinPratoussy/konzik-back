@@ -1,8 +1,8 @@
 package com.konzik.auth.controllers;
 
-import com.konzik.common.models.ERole;
-import com.konzik.common.models.Role;
-import com.konzik.common.models.User;
+import com.konzik.common.entities.ERole;
+import com.konzik.common.entities.Role;
+import com.konzik.common.entities.User;
 import com.konzik.auth.payload.request.LoginRequest;
 import com.konzik.auth.payload.request.SignupRequest;
 import com.konzik.auth.payload.response.JwtResponse;

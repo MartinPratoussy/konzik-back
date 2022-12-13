@@ -1,7 +1,7 @@
 package com.konzik.Concert.services;
 
-import com.konzik.common.models.Concert;
-import com.konzik.Concert.Repositories.ConcertRepository;
+import com.konzik.common.entities.Concert;
+import com.konzik.common.repositories.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,18 +31,18 @@ public class ConcertService {
     }
 
     public void deleteConcert(String id) {
-        repository.deleteById(Long.parseLong(id));
+        repository.deleteById(UUID.fromString(id));
     }
 
-    public Concert findConcertById(Long id) {
+    public Concert findConcertById(UUID id) {
         return repository.findById(id)
                 .orElseThrow(() -> new NullPointerException("concert not found"));
     }
 
-    public Map<Long, Long> getRecurrence() {
-        Map<Long, Long> concertRecurrence = new HashMap<>();
+    public Map<UUID, Long> getRecurrence() {
+        Map<UUID, Long> concertRecurrence = new HashMap<>();
         for (Concert concert : allConcert()) {
-            Long concertId = concert.getId();
+            UUID concertId = concert.getId();
             Long recurrence = repository.getConcertRecurrence(concertId);
             if (recurrence == 0) {
                 repository.deleteById(concertId);

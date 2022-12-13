@@ -1,4 +1,4 @@
-package com.konzik.common.models;
+package com.konzik.common.entities;
 
 import jakarta.persistence.*;
 import javax.validation.constraints.Email;
@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
-@Table(name = "users",
+@Table(name = "konzik_users",
     uniqueConstraints = {
             @UniqueConstraint(columnNames = "username"),
             @UniqueConstraint(columnNames = "email")
@@ -15,8 +15,8 @@ import java.util.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @NotBlank
     @Size(max = 20)
     private String username;
@@ -29,7 +29,7 @@ public class User {
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -54,11 +54,11 @@ public class User {
         this.email = email;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -102,7 +102,7 @@ public class User {
         this.planning.add(concert);
     }
 
-    public void removeConcertFromPlanning(Long id) {
+    public void removeConcertFromPlanning(UUID id) {
         for (Concert concert : this.planning) {
             if (concert.getId() == id) {
                 this.planning.remove(concert);

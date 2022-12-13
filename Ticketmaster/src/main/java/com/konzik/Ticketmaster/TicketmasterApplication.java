@@ -1,4 +1,4 @@
-package com.konzik.Chat;
+package com.konzik.Ticketmaster;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ChatApplication {
+public class TicketmasterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChatApplication.class, args);
+		SpringApplication.run(TicketmasterApplication.class, args);
 	}
 
 	@RestController

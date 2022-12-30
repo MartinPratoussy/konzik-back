@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Controller
 public class ChatController {
-    @MessageMapping("/chat.register")
+    @MessageMapping("/publicChat.register")
     @SendTo("/topic/public")
     public ChatMessage registerPublic(@Payload ChatMessage chatMessage,
                                 SimpMessageHeaderAccessor headerAccessor) {
@@ -20,7 +20,7 @@ public class ChatController {
         return chatMessage;
     }
 
-    @MessageMapping("/chat.send")
+    @MessageMapping("/publicChat.send")
     @SendTo("/topic/public")
     public ChatMessage sendMessagePublic(@Payload ChatMessage chatMessage) {
         return chatMessage;

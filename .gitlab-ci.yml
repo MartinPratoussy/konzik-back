@@ -24,4 +24,4 @@ variables:
 
 default:
   tags:
-    - runner-l
+  #  - runner-l

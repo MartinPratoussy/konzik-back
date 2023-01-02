@@ -1,4 +1,10 @@
-FROM openjdk:17-jdk-slim as builder
+FROM debian:latest as builder
+
+# Install OpenJDK 17
+RUN apt-get update && \
+    apt-get install -y apt-utils curl openjdk-17-jdk openjdk-17-jre && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Installer Maven
 RUN apt-get update && \
@@ -14,7 +20,13 @@ WORKDIR /app/Common
 RUN mvn compile && mvn install && cp /app/Common/target/*.jar /app/APPLI/common.jar
 RUN echo "Common ok !"
 
-FROM openjdk:17-jdk-slim as runner
+FROM debian:latest as builder
+
+# Install OpenJDK 17
+RUN apt-get update && \
+    apt-get install -y apt-utils curl openjdk-17-jdk openjdk-17-jre && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/APPLI/ .
 CMD java -jar common.jar

@@ -5,23 +5,3 @@ stages:
 
 build-image:
   stage: build
-  script:
-    #- docker build -t thomasoss/testrepo:latest -f Dockerfile .
-    #- dnf install -y qemu-user-static binfmt-support
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker-compose build
-  when: manual
-
-  only:
-    - master
-
-variables:
-  DOCKER_USERNAME: $DOCKER_USERNAME
-  DOCKER_PASSWORD: $DOCKER_PASSWORD
-
-default:
-  tags:
-    - runner-l

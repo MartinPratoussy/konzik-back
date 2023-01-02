@@ -56,7 +56,7 @@ build-eureka:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm32 -f ./Dockerfile/eureka/Dockerfile -t thomasoss/back-konzik:eureka .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/eureka/Dockerfile -t thomasoss/back-konzik:eureka .
   when: manual
 
 build-ticketmaster:

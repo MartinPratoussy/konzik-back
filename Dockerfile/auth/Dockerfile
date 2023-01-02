@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk as builder
+FROM openjdk:17 as builder
 
 # Installer Maven
 RUN apt-get update && \
@@ -17,7 +17,7 @@ WORKDIR /app/Auth
 RUN mvn compile && mvn install -DskipTests && cp /app/Auth/target/*.jar /app/APPLI/auth.jar
 RUN echo "Auth ok !"
 
-FROM openjdk:17-jdk as runner
+FROM openjdk:17 as runner
 
 COPY --from=builder /app/APPLI/ .
 CMD java -jar auth.jar

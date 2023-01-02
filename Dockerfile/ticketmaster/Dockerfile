@@ -1,4 +1,4 @@
-FROM ubuntu:latest as builder
+FROM debian:latest as builder
 
 # Install OpenJDK 17
 RUN apt-get update && \
@@ -20,7 +20,7 @@ WORKDIR /app/Ticketmaster
 RUN mvn compile && mvn install -DskipTests && cp /app/Ticketmaster/target/*.jar /app/APPLI/ticketmaster.jar
 RUN echo "Ticketmaster ok !"
 
-FROM ubuntu:latest as runner
+FROM debian:latest as runner
 
 # Install OpenJDK 17
 RUN apt-get update && \

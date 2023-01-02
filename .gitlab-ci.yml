@@ -1,20 +1,73 @@
 image: docker:latest
 
 stages:
-  - build
+  - build-auth
+  - build-chat
+  - build-common
+  - build-concert
+  - build-eureka
+  - build-ticketmaster
 
-build-image:
-  stage: build
+build-auth:
+  stage: build-auth
   script:
-    #- docker build -t thomasoss/testrepo:latest -f Dockerfile .
-    #- dnf install -y qemu-user-static binfmt-support
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker-compose build
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./DockerFile/Auth/Dockerfile -t thomasoss/back-konzik:auth .
   when: manual
 
+build-chat:
+  stage: build-chat
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./DockerFile/Chat/Dockerfile -t thomasoss/back-konzik:chat .
+  when: manual
+
+build-common:
+  stage: build-common
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./DockerFile/Common/Dockerfile -t thomasoss/back-konzik:common .
+  when: manual
+
+build-concert:
+  stage: build-concert
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./DockerFile/Concert/Dockerfile -t thomasoss/back-konzik:concert .
+  when: manual
+
+build-eureka:
+  stage: build-eureka
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./DockerFile/Eureka/Dockerfile -t thomasoss/back-konzik:eureka .
+  when: manual
+
+build-ticketmaster:
+  stage: build-ticketmaster
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./DockerFile/Ticketmaster/Dockerfile -t thomasoss/back-konzik:ticketmaster .
+  when: manual
+    
   only:
     - dev
 

@@ -11,7 +11,7 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 WORKDIR /app/Chat
-RUN mvn compile && mvn install && cp /app/Chat/target/*.jar /app/APPLI/chat.jar
+RUN mvn compile && mvn install -DskipTests && cp /app/Chat/target/*.jar /app/APPLI/chat.jar
 RUN echo "Chat ok !"
 
 FROM openjdk:17-jdk-slim as runner

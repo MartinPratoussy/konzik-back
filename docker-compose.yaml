@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  common:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/common/Dockerfile
+    image: thomasoss/back-konzik:common
+    container_name: common
+
+  eureka:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/eureka/Dockerfile
+    image: thomasoss/back-konzik:eureka
+    container_name: eureka
+    ports:
+      - 8761:8761
+
+# depend du micro service common
+  auth:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/auth/Dockerfile
+    image: thomasoss/back-konzik:auth
+    container_name: auth
+
+  chat:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/chat/Dockerfile
+    image: thomasoss/back-konzik:chat
+    container_name: chat
+ 
+ 
+# depend du micro service common
+  concert:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/concert/Dockerfile
+    image: thomasoss/back-konzik:concert
+    container_name: concert
+
+
+  ticketmaster:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/ticketmaster/Dockerfile
+    image: thomasoss/back-konzik:ticketmaster
+    container_name: ticketmaster

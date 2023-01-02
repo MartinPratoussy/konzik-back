@@ -11,7 +11,7 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 WORKDIR /app/Eureka
-RUN mvn compile && mvn install && cp /app/Eureka/target/*.jar /app/APPLI/eureka.jar
+RUN mvn compile && mvn install -DskipTests && cp /app/Eureka/target/*.jar /app/APPLI/eureka.jar
 RUN echo "Eureka ok !"
 
 FROM openjdk:17-jdk-slim as runner

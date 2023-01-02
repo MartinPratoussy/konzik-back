@@ -16,7 +16,7 @@ build-image:
   when: manual
 
   only:
-    - master
+    - dev
 
 variables:
   DOCKER_USERNAME: $DOCKER_USERNAME

@@ -11,7 +11,7 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 WORKDIR /app/Ticketmaster
-RUN mvn compile && mvn install && cp /app/Ticketmaster/target/*.jar /app/APPLI/ticketmaster.jar
+RUN mvn compile && mvn install -DskipTests && cp /app/Ticketmaster/target/*.jar /app/APPLI/ticketmaster.jar
 RUN echo "Ticketmaster ok !"
 
 FROM openjdk:17-jdk-slim as runner

@@ -20,7 +20,7 @@ WORKDIR /app/Chat
 RUN mvn compile && mvn install -DskipTests && cp /app/Chat/target/*.jar /app/APPLI/chat.jar
 RUN echo "Chat ok !"
 
-FROM debian:latest as builder
+FROM debian:latest  as runner
 
 # Install OpenJDK 17
 RUN apt-get update && \

@@ -20,7 +20,7 @@ WORKDIR /app/Common
 RUN mvn compile && mvn install && cp /app/Common/target/*.jar /app/APPLI/common.jar
 RUN echo "Common ok !"
 
-FROM debian:latest as builder
+FROM debian:latest as runner
 
 # Install OpenJDK 17
 RUN apt-get update && \

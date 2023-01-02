@@ -23,7 +23,7 @@ WORKDIR /app/Auth
 RUN mvn compile && mvn install -DskipTests && cp /app/Auth/target/*.jar /app/APPLI/auth.jar
 RUN echo "Auth ok !"
 
-FROM debian:latest as builder
+FROM debian:latest  as runner
 
 # Install OpenJDK 17
 RUN apt-get update && \

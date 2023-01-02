@@ -24,7 +24,7 @@ RUN mvn compile && mvn install -DskipTests && cp /app/Concert/target/*.jar /app/
 RUN echo "Concert ok !"
 
 
-FROM debian:latest as builder
+FROM debian:latest as runner
 
 # Install OpenJDK 17
 RUN apt-get update && \

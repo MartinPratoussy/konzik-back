@@ -16,7 +16,7 @@ build-auth:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
   when: manual
 
 build-chat:
@@ -26,7 +26,7 @@ build-chat:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/chat/Dockerfile -t thomasoss/back-konzik:chat .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/chat/Dockerfile -t thomasoss/back-konzik:chat .
   when: manual
 
 build-common:
@@ -36,7 +36,7 @@ build-common:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/common/Dockerfile -t thomasoss/back-konzik:common .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/common/Dockerfile -t thomasoss/back-konzik:common .
   when: manual
 
 build-concert:
@@ -46,7 +46,7 @@ build-concert:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/concert/Dockerfile -t thomasoss/back-konzik:concert .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/concert/Dockerfile -t thomasoss/back-konzik:concert .
   when: manual
 
 build-eureka:
@@ -56,7 +56,7 @@ build-eureka:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/eureka/Dockerfile -t thomasoss/back-konzik:eureka .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/eureka/Dockerfile -t thomasoss/back-konzik:eureka .
   when: manual
 
 build-ticketmaster:
@@ -66,7 +66,7 @@ build-ticketmaster:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/ticketmaster/Dockerfile -t thomasoss/back-konzik:ticketmaster .
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/ticketmaster/Dockerfile -t thomasoss/back-konzik:ticketmaster .
   when: manual
     
   only:
@@ -78,4 +78,4 @@ variables:
 
 default:
   tags:
-    - runner-m
+    - runner-l

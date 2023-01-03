@@ -1,10 +1,10 @@
-package com.konzik.Zuul;
+package com.konzik.Gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ZuulApplicationTests {
+class GatewayApplicationTests {
 
 	@Test
 	void contextLoads() {

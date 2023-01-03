@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@SpringBootApplication(scanBasePackages = {"com.konzik.common"})
+@SpringBootApplication
 @EnableDiscoveryClient
 @EnableJpaRepositories(basePackages = {"com.konzik.common.repositories"})
-@ComponentScan(basePackages = {"com.konzik.common"})
 @EntityScan(basePackages = {"com.konzik.common.entities"})
 public class ConcertApplication {
 

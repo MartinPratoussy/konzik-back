@@ -37,7 +37,7 @@ build-common:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/arm/v7 -f ./Dockerfile/common/Dockerfile -t thomasoss/back-konzik:common .
+    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/common/Dockerfile -t thomasoss/back-konzik:common .
   when: manual
 
 build-concert:

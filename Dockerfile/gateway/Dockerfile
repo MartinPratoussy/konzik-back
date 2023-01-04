@@ -16,7 +16,7 @@ ADD ../../ /app/
 # Créer un dossier APPLI
 RUN mkdir /app/APPLI
 
-WORKDIR /app/Eureka
+WORKDIR /app/Gateway
 RUN mvn compile && mvn install -DskipTests && cp /app/Gateway/target/*.jar /app/APPLI/gateway.jar
 RUN echo "Gateway ok !"
 

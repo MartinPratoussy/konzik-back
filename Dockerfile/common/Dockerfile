@@ -7,12 +7,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Installer Maven
-ENV MAVEN_VERSION=3.6.3 \
-    MAVEN_HOME=/usr/local/maven
-
-RUN mkdir -p $MAVEN_HOME \
-  && curl -fsSL http://www-eu.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar -xzC $MAVEN_HOME --strip-components=1 \
-  && ln -s $MAVEN_HOME/bin/mvn /usr/local/bin/mvn
+RUN wget https://downloads.apache.org/maven/maven-3/3.7.0/binaries/apache-maven-3.7.0-bin.tar.gz
+RUN tar -xvf apache-maven-3.7.0-bin.tar.gz
+RUN sudo mv apache-maven-3.7.0 /opt/maven
+RUN echo "export PATH=/opt/maven/bin:$PATH" >> ~/.bashrc
+RUN source ~/.bashrc
 
 
 # Ajouter konzik-back-dev.tar dans le dossier app

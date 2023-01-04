@@ -17,6 +17,15 @@ services:
     ports:
       - 8761:8761
 
+  gateway:
+    build:
+      context: .
+      dockerfile: ./Dockerfile/gateway/Dockerfile
+    image: thomasoss/back-konzik:gateway
+    container_name: gateway
+    ports:
+      - 8762:8762
+
 # depend du micro service common
   auth:
     build:

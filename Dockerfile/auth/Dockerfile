@@ -17,7 +17,7 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 #Problem compilation manque BDD
-WORKDIR /app/Common
+WORKDIR /app/Auth
 RUN mvn compile && mvn install
 WORKDIR /app/Auth
 RUN mvn compile && mvn install -DskipTests && cp /app/Auth/target/*.jar /app/APPLI/auth.jar

@@ -18,4 +18,4 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 WORKDIR /app/Common
-RUN mvn compile 
+RUN ls

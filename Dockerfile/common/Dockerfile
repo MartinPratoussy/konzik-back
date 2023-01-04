@@ -18,9 +18,10 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 WORKDIR /app/Common
-RUN mvn compile && mvn install
+RUN mvn compile 
+#&& mvn install
 RUN echo "11111111111111111111111111111111111111111111111111111"
-RUN cp /app/Common/target/*.jar /app/APPLI/common.jar
+#RUN cp /app/Common/target/*.jar /app/APPLI/common.jar
 RUN echo "222222222222222222222222222222222222222222222222222"
 
 

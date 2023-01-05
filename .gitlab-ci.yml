@@ -8,12 +8,12 @@ stages:
 #  - build-ticketmaster
 #  - build-chat
 #  - build-concert
-  - build-1
-  - build-2
-  - build-3
+  - build-depandance
+  - build-route
+  - build-app
 
 build-common:
-  stage: build-1
+  stage: build-depandance
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
@@ -23,7 +23,7 @@ build-common:
   when: manual
   
 build-eureka:
-  stage: build-2
+  stage: build-route
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
@@ -33,7 +33,7 @@ build-eureka:
   when: manual
 
 build-gateway:
-  stage: build-2
+  stage: build-route
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
@@ -43,7 +43,7 @@ build-gateway:
   when: manual
 
 build-auth:
-  stage: build-2
+  stage: build-app
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
@@ -54,7 +54,7 @@ build-auth:
   when: manual
   
 build-ticketmaster:
-  stage: build-3
+  stage: build-app
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
@@ -64,7 +64,7 @@ build-ticketmaster:
   when: manual
 
 build-chat:
-  stage: build-3
+  stage: build-app
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
@@ -74,7 +74,7 @@ build-chat:
   when: manual
 
 build-concert:
-  stage: build-3
+  stage: build-app
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use

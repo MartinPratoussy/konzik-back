@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get install -y maven
 
 # Ajouter konzik-back-dev.tar dans le dossier app
-ADD ../../ /app/
+ADD ../../Ticketmaster /app/Ticketmaster
 
 # Créer un dossier APPLI
 RUN mkdir /app/APPLI

@@ -18,7 +18,7 @@ build-auth:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 #    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
-#  when: auto
+when: manual
 
 build-chat:
   stage: build-chat
@@ -28,7 +28,7 @@ build-chat:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/chat/Dockerfile -t thomasoss/back-konzik:chat .
-#   when:
+when: manual
 
 build-common:
   stage: build-common
@@ -38,7 +38,7 @@ build-common:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/common/Dockerfile -t thomasoss/back-konzik:common .
-#  when:
+when: manual
 
 build-concert:
   stage: build-concert
@@ -48,7 +48,7 @@ build-concert:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/concert/Dockerfile -t thomasoss/back-konzik:concert .
-#  when:
+when: manual
 
 build-eureka:
   stage: build-eureka
@@ -58,7 +58,7 @@ build-eureka:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/eureka/Dockerfile -t thomasoss/back-konzik:eureka .
-#  when:
+when: manual
 
 build-gateway:
   stage: build-gateway
@@ -68,7 +68,7 @@ build-gateway:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/gateway/Dockerfile -t thomasoss/back-konzik:gateway .
-#  when:
+when: manual
 
 build-ticketmaster:
   stage: build-ticketmaster
@@ -78,7 +78,7 @@ build-ticketmaster:
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/ticketmaster/Dockerfile -t thomasoss/back-konzik:ticketmaster .
-#  when:
+when: manual
     
   only:
     - dev

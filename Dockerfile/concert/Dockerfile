@@ -17,8 +17,7 @@ ADD ../../ /app/
 RUN mkdir /app/APPLI
 
 #Problem compilation manque BDD
-WORKDIR /app/Concert
-RUN mvn compile && mvn install
+
 WORKDIR /app/Concert
 RUN mvn compile && mvn install -DskipTests && cp /app/Concert/target/*.jar /app/APPLI/concert.jar
 RUN echo "Concert ok !"

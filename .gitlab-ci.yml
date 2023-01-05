@@ -1,13 +1,13 @@
 image: docker:latest
 
 stages:
-  - build-auth
-  - build-chat
   - build-common
-  - build-concert
-  - build-eureka
   - build-gateway
+  - build-eureka
+  - build-auth
   - build-ticketmaster
+  - build-chat
+  - build-concert
 
 build-common:
   stage: build-common

@@ -12,6 +12,7 @@ RUN apt-get update && \
 
 # Ajouter konzik-back-dev.tar dans le dossier app
 ADD ../../Auth /app/Auth
+ADD ../../Common /app/Auth
 
 # Créer un dossier APPLI
 RUN mkdir /app/APPLI

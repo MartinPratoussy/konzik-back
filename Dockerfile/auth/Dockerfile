@@ -1,21 +1,21 @@
-FROM maven as builder
+#FROM maven as builder
 
 # Ajouter konzik-back-dev.tar dans le dossier app
-ADD ../../Auth /app/Auth
-ADD ../../Common /app/Common
+#ADD ../../Auth /app/Auth
+#ADD ../../Common /app/Common
 
 # Créer un dossier APPLI
-RUN mkdir /app/APPLI
+#RUN mkdir /app/APPLI
 
 #Problem compilation manque BDD
-WORKDIR /app/Common
-RUN mvn compile && mvn install
-WORKDIR /app/Auth
-RUN mvn compile && mvn install -DskipTests && cp /app/Auth/target/*.jar /app/APPLI/auth.jar
-RUN echo "Auth ok !"
+#WORKDIR /app/Common
+#RUN mvn compile && mvn install
+#WORKDIR /app/Auth
+#RUN mvn compile && mvn install -DskipTests && cp /app/Auth/target/*.jar /app/APPLI/auth.#jar
+#RUN echo "Auth ok !"
 
 FROM maven:latest as runner
 
-COPY --from=builder /app/APPLI/ .
+#COPY --from=builder /app/APPLI/ .
 CMD java -jar auth.jar
 

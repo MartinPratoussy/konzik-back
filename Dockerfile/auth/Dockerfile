@@ -1,4 +1,8 @@
-FROM maven as builder
+FROM openjdk:17-jdk-slim as builder
+
+# Installer Maven
+RUN apt-get update && \
+    apt-get install -y maven
 
 # Ajouter konzik-back-dev.tar dans le dossier app
 ADD ../../Auth /app/Auth

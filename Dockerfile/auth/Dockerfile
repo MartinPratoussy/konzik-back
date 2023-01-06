@@ -17,7 +17,6 @@ WORKDIR /app/Common
 RUN mvn compile && mvn install
 WORKDIR /app/Auth
 RUN mvn compile && mvn install -DskipTests && cp /app/Auth/target/*.jar /app/APPLI/auth.jar
-RUN cp /app/APPLI/auth.jar $CI_PROJECT_DIR/artifacts/auth.jar
 RUN echo "Auth ok !"
 
 FROM maven:latest as runner

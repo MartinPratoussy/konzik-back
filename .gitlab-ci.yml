@@ -5,8 +5,8 @@ default:
 
 stages:
   - build-common
-  - compile
-  - build-image
+  - compile-services
+  - build-images
   - deploy
 
 build-dependance:
@@ -19,11 +19,14 @@ build-dependance:
     name: common
     paths:
       - ./Common/
+
+  only:
+    - master
   when: manual
 
 compile-auth:
   image: maven:3.8.5-openjdk-17
-  stage: compile
+  stage: compile-services
   script:
     - cd ./Common
     - mvn install
@@ -36,14 +39,20 @@ compile-auth:
     name: auth
     paths:
       - ./Auth/target/auth.jar
+
+  only:
+    - master
   when: manual
 
 build-auth-image:
-  stage: build-image
+  stage: build-images
   script:
     - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
     - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:auth ./Auth/target/
+
+  only:
+    - master
   when: manual

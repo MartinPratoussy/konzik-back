@@ -38,5 +38,5 @@ compile-auth:
   artifacts:
     name: auth
     paths:
-      - ./target/auth.jar
+      - ./Auth/target/auth.jar
   when: manual

@@ -213,3 +213,26 @@ build-ticketmaster-image:
   only:
     - dev
 #  when: manual
+
+deploy-images:
+  stage: deploy
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$OVH" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $SERVER >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh $SERVER_USER@$SERVER "echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin && 
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:eureka back_eureka &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:auth back_auth &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:gateway back_gateway &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:concert back_concert &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:ticketmaster back_ticketmaster &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:chat back_chat"
+
+  only:
+    - dev
+#  when: manual

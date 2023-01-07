@@ -30,6 +30,7 @@ compile-auth:
     - cd ../Auth
     - mvn compile
     - mvn install -DskipTests
+    - ls -l
     - mv ./target/*.jar ./target/auth.jar
   artifacts:
     name: auth

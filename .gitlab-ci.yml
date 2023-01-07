@@ -20,3 +20,19 @@ build-dependance:
     paths:
       - ./Common/
   when: manual
+
+compile-auth:
+  image: maven:3.8.5-openjdk-17
+  stage: compile
+  script:
+    - cd ./Common
+    - mvn install
+    - cd ../Auth
+    - mvn compile
+    - mvn install -DskipTests
+    - mv ./target/*.jar ./target/auth.jar
+  artifacts:
+    name: auth
+    paths:
+      - ./target/auth.jar
+  when: manual

@@ -22,7 +22,7 @@ build-dependance:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 compile-auth:
   image: maven:3.8.5-openjdk-17
@@ -42,7 +42,7 @@ compile-auth:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 compile-concert:
   image: maven:3.8.5-openjdk-17
@@ -62,7 +62,7 @@ compile-concert:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 compile-chat:
   image: maven:3.8.5-openjdk-17
@@ -80,7 +80,7 @@ compile-chat:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 compile-eureka:
   image: maven:3.8.5-openjdk-17
@@ -98,7 +98,7 @@ compile-eureka:
 
   only:
     - dev
-#  when: manual     
+  when: manual     
 
 compile-gateway:
   image: maven:3.8.5-openjdk-17
@@ -116,7 +116,7 @@ compile-gateway:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 compile-ticketmaster:
   image: maven:3.8.5-openjdk-17
@@ -134,7 +134,7 @@ compile-ticketmaster:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 build-auth-image:
   stage: build-images
@@ -147,7 +147,7 @@ build-auth-image:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 build-concert-image:
   stage: build-images
@@ -160,7 +160,7 @@ build-concert-image:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 build-chat-image:
   stage: build-images
@@ -173,7 +173,7 @@ build-chat-image:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 build-eureka-image:
   stage: build-images
@@ -186,7 +186,7 @@ build-eureka-image:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 build-gateway-image:
   stage: build-images
@@ -199,7 +199,7 @@ build-gateway-image:
 
   only:
     - dev
-#  when: manual
+  when: manual
 
 build-ticketmaster-image:
   stage: build-images
@@ -212,4 +212,4 @@ build-ticketmaster-image:
 
   only:
     - dev
-#  when: manual
+  when: manual

@@ -30,11 +30,8 @@ compile-auth:
     - cd ../Auth
     - mvn compile
     - mvn install -DskipTests
-    - ls -l
     - cd ./target
-    - ls -l
     - mv *.jar auth.jar
-    - ls -l
   artifacts:
     name: auth
     paths:
@@ -48,6 +45,5 @@ build-auth-image:
     - docker buildx create --name builder-user --use
     - docker buildx inspect --bootstrap
     - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
-    - ls -l
     - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:auth ./Auth/target/
   when: manual

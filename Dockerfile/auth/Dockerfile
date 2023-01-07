@@ -1,3 +1,3 @@
 FROM maven:latest
-COPY auth.jar .
+COPY ./Auth/target/auth.jar .
 CMD java -jar auth.jar

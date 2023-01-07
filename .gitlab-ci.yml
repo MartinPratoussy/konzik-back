@@ -44,6 +44,26 @@ compile-auth:
     - dev
   when: manual
 
+compile-concert:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Common
+    - mvn install
+    - cd ../Concert
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar concert.jar
+  artifacts:
+    name: concert
+    paths:
+      - ./Concert/target/concert.jar
+
+  only:
+    - dev
+  when: manual
+
 build-auth-image:
   stage: build-images
   script:

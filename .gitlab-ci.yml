@@ -21,7 +21,7 @@ build-dependance:
       - ./Common/
 
   only:
-    - master
+    - dev
   when: manual
 
 compile-auth:
@@ -41,7 +41,7 @@ compile-auth:
       - ./Auth/target/auth.jar
 
   only:
-    - master
+    - dev
   when: manual
 
 build-auth-image:
@@ -54,5 +54,5 @@ build-auth-image:
     - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:auth ./Auth/target/
 
   only:
-    - master
+    - dev
   when: manual

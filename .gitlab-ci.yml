@@ -147,6 +147,7 @@ build-auth-image:
 
   only:
     - dev
+  retry: 2
 #  when: manual
 
 build-concert-image:
@@ -160,6 +161,7 @@ build-concert-image:
 
   only:
     - dev
+  retry: 2
 #  when: manual
 
 build-chat-image:
@@ -173,6 +175,7 @@ build-chat-image:
 
   only:
     - dev
+  retry: 2
 #  when: manual
 
 build-eureka-image:
@@ -186,6 +189,7 @@ build-eureka-image:
 
   only:
     - dev
+  retry: 2
 #  when: manual
 
 build-gateway-image:
@@ -199,6 +203,7 @@ build-gateway-image:
 
   only:
     - dev
+  retry: 2
 #  when: manual
 
 build-ticketmaster-image:
@@ -212,6 +217,7 @@ build-ticketmaster-image:
 
   only:
     - dev
+  retry: 2
 #  when: manual
 
 deploy-images:

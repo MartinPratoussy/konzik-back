@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,17 +28,9 @@ public class ConcertController {
         this.service = service;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "redirect:/planning";
-    }
-
     @GetMapping("/all")
-    public String concerts(@ModelAttribute Concert concert, Model model) {
-        model.addAttribute("concertRecurrence", service.getRecurrence());
-        model.addAttribute("concerts", service.allConcert());
-        model.addAttribute("concertToAdd", concert);
-        return "concerts";
+    public List<Concert> concerts(@ModelAttribute Concert concert, Model model) {
+        return service.allConcert();
     }
 
     @GetMapping("/all/find/{id}")

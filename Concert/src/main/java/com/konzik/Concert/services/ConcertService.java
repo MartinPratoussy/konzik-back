@@ -19,7 +19,7 @@ public class ConcertService {
         this.repository = repository;
     }
 
-    public Iterable<Concert> allConcert() {
+    public List<Concert> allConcert() {
         return repository.findAll();
     }
 

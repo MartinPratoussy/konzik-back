@@ -1,95 +1,238 @@
-image: docker:latest
-
-stages:
-#  - build-common
-#  - build-gateway
-#  - build-eureka
-#  - build-auth
-#  - build-ticketmaster
-#  - build-chat
-#  - build-concert
-  - build-depandance
-  - build-route
-  - build-app
-
-build-common:
-  stage: build-depandance
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/common/Dockerfile -t thomasoss/back-konzik:common .
-  when: manual
-  
-build-eureka:
-  stage: build-route
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/eureka/Dockerfile -t thomasoss/back-konzik:eureka .
-  when: manual
-
-build-gateway:
-  stage: build-route
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/gateway/Dockerfile -t thomasoss/back-konzik:gateway .
-  when: manual
-
-build-auth:
-  stage: build-app
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/auth/Dockerfile -t thomasoss/back-konzik:auth .
-  when: manual
-  
-build-ticketmaster:
-  stage: build-app
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/ticketmaster/Dockerfile -t thomasoss/back-konzik:ticketmaster .
-  when: manual
-
-build-chat:
-  stage: build-app
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/chat/Dockerfile -t thomasoss/back-konzik:chat .
-  when: manual
-
-build-concert:
-  stage: build-app
-  script:
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker buildx create --name builder-user --use
-    - docker buildx inspect --bootstrap
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker buildx build --push --platform linux/amd64,linux/arm64 -f ./Dockerfile/concert/Dockerfile -t thomasoss/back-konzik:concert .
-  when: manual
-    
-  only:
-    - dev
-
-variables:
-  DOCKER_USERNAME: $DOCKER_USERNAME
-  DOCKER_PASSWORD: $DOCKER_PASSWORD
-
 default:
+  image: docker:latest
   tags:
     - runner-l
+    
+stages:
+  - build-common
+  - compile-services
+  - build-images
+  - deploy
+
+build-dependance:
+  image: maven:3.8.5-openjdk-17
+  stage: build-common
+  script:
+    - cd ./Common
+    - mvn compile
+  artifacts:
+    name: common
+    paths:
+      - ./Common/
+
+  only:
+    - dev
+#  when: manual
+
+compile-auth:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Common
+    - mvn install
+    - cd ../Auth
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar auth.jar
+  artifacts:
+    name: auth
+    paths:
+      - ./Auth/target/auth.jar
+
+  only:
+    - dev
+#  when: manual
+
+compile-concert:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Common
+    - mvn install
+    - cd ../Concert
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar concert.jar
+  artifacts:
+    name: concert
+    paths:
+      - ./Concert/target/concert.jar
+
+  only:
+    - dev
+#  when: manual
+
+compile-chat:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Chat
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar chat.jar
+  artifacts:
+    name: chat
+    paths:
+      - ./Chat/target/chat.jar
+
+  only:
+    - dev
+#  when: manual
+
+compile-eureka:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Eureka
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar eureka.jar
+  artifacts:
+    name: eureka
+    paths:
+      - ./Eureka/target/eureka.jar
+
+  only:
+    - dev
+#  when: manual     
+
+compile-gateway:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Gateway
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar gateway.jar
+  artifacts:
+    name: gateway
+    paths:
+      - ./Gateway/target/gateway.jar
+
+  only:
+    - dev
+#  when: manual
+
+compile-ticketmaster:
+  image: maven:3.8.5-openjdk-17
+  stage: compile-services
+  script:
+    - cd ./Ticketmaster
+    - mvn compile
+    - mvn install -DskipTests
+    - cd ./target
+    - mv *.jar ticketmaster.jar
+  artifacts:
+    name: ticketmaster
+    paths:
+      - ./Ticketmaster/target/ticketmaster.jar
+
+  only:
+    - dev
+#  when: manual
+
+build-auth-image:
+  stage: build-images
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/auth/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:auth ./Auth/target/
+
+  only:
+    - dev
+#  when: manual
+
+build-concert-image:
+  stage: build-images
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/concert/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:concert ./Concert/target/
+
+  only:
+    - dev
+#  when: manual
+
+build-chat-image:
+  stage: build-images
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/chat/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:chat ./Chat/target/
+
+  only:
+    - dev
+#  when: manual
+
+build-eureka-image:
+  stage: build-images
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/eureka/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:eureka ./Eureka/target/
+
+  only:
+    - dev
+#  when: manual
+
+build-gateway-image:
+  stage: build-images
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/gateway/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:gateway ./Gateway/target/
+
+  only:
+    - dev
+#  when: manual
+
+build-ticketmaster-image:
+  stage: build-images
+  script:
+    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+    - docker buildx create --name builder-user --use
+    - docker buildx inspect --bootstrap
+    - echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin
+    - docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 -f ./Dockerfile/ticketmaster/Dockerfile -t registry.cpe.granux.fr/hllmp/konzik-back:ticketmaster ./Ticketmaster/target/
+
+  only:
+    - dev
+#  when: manual
+
+deploy-images:
+  stage: deploy
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$OVH" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $SERVER >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh $SERVER_USER@$SERVER "echo "$DOCKER_PASSWORD" | docker login registry.cpe.granux.fr -u "$DOCKER_USERNAME" --password-stdin && 
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:eureka back_eureka &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:auth back_auth &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:gateway back_gateway &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:concert back_concert &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:ticketmaster back_ticketmaster &&
+                                docker service update --with-registry-auth --force --image registry.cpe.granux.fr/hllmp/konzik-back:chat back_chat"
+
+  only:
+    - dev
+#  when: manual

@@ -38,15 +38,15 @@ public class ConcertController {
         return service.findConcertById(id);
     }
 
+    @DeleteMapping("/all/delete/{id}")
+    public ResponseEntity<MessageResponse> deleteConcert(@RequestParam String id) {
+        service.deleteConcert(id);
+        return ResponseEntity.ok(new MessageResponse("Concert deleted successfully!"));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<MessageResponse> addConcert(@Valid @RequestBody AddConcertRequest addConcertRequest) throws Exception {
         service.addConcert(addConcertRequest);
         return ResponseEntity.ok(new MessageResponse("Concert added successfully!"));
-    }
-
-    @PostMapping("/delete/{id}")
-    public ResponseEntity<MessageResponse> deleteConcert(@RequestParam String id) {
-        service.deleteConcert(id);
-        return ResponseEntity.ok(new MessageResponse("Concert deleted successfully!"));
     }
 }

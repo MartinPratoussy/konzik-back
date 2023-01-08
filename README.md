@@ -1,32 +1,39 @@
 # KONZIK
 
 Service path:
- - concert service: CONCERT-SERVICE/api/concert
-	- all concerts: 	/all
-	- find one: 		/find/{id}
-	- display add form: 	/add
-	- delete one: 		/delete/{id}
-	- update one: 		/update{id}
- - auth service: AUTH-SERVICE/api/auth
-	- sign-in:		/signin
-```json
-{
-	"username" : "<username>",
-	"email": "<email>",
-	"role": ["<username>", "<role_name>"],
-	"password": "<password"
-}
-```
-	- sign-on:		/signup
-```json
-{
-	"username" : "<username>",
-	"password": "<password>"
-}
-```
-	- all users: 		/all
-	- find one: 		/find/{username}
-	- update one: 		/update/{username}
-	- delete one:		/find/{username}
-	- verify: 		/verification-link/{userId}
-	- reset password: 	/reset-password/{userId}
+- concert service: CONCERT-SERVICE/api/concert
+  - GET requests:
+    - get all concerts: /all
+    - get one specific concert by ID: /all/find/{id}
+  - DELETE request:
+    - delete one specific concert by ID: /all/delete/{id}
+  - POST requests:
+    - add a new concert: /add
+	```json
+    {
+      "date": "<date>",
+      "artist": "<artist>",
+      "genre": "<genre>",
+      "location": "<location>",
+      "city": "<city>",
+      "country": "<country>"
+    }
+  	```
+- auth service: AUTH-SERVICE/api/auth
+  - POST requests:
+    - register a new user: /signup
+    ```json
+    {
+     "username" : "<username>",
+      "email": "<email>",
+      "role": ["<username>", "<role_name>"],
+      "password": "<password"
+    }
+    ```
+    - login with an existing user: /signin
+    ```json
+    {
+      "username" : "<username>",
+      "password": "<password>"
+    }
+    ```

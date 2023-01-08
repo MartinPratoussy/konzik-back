@@ -1,13 +1,17 @@
 package com.konzik.Concert.controllers;
 
+import com.konzik.Concert.payload.request.AddConcertRequest;
+import com.konzik.common.payloads.MessageResponse;
 import com.konzik.common.entities.Concert;
 import com.konzik.Concert.services.ConcertService;
 import com.konzik.common.repositories.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,17 +28,9 @@ public class ConcertController {
         this.service = service;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "redirect:/planning";
-    }
-
     @GetMapping("/all")
-    public String concerts(@ModelAttribute Concert concert, Model model) {
-        model.addAttribute("concertRecurrence", service.getRecurrence());
-        model.addAttribute("concerts", service.allConcert());
-        model.addAttribute("concertToAdd", concert);
-        return "concerts";
+    public List<Concert> concerts(@ModelAttribute Concert concert, Model model) {
+        return service.allConcert();
     }
 
     @GetMapping("/all/find/{id}")
@@ -42,23 +38,15 @@ public class ConcertController {
         return service.findConcertById(id);
     }
 
-    @PostMapping(
-            path="/all",
-            consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String newConcert(Concert concert) throws Exception {
-        service.addConcert(concert);
-        return "redirect:/planning";
+    @PostMapping("/add")
+    public ResponseEntity<MessageResponse> addConcert(@Valid @RequestBody AddConcertRequest addConcertRequest) throws Exception {
+        service.addConcert(addConcertRequest);
+        return ResponseEntity.ok(new MessageResponse("Concert added successfully!"));
     }
 
-    @GetMapping("/add")
-    public String concertForm(@ModelAttribute Concert concert, Model model) {
-        model.addAttribute("concert", concert);
-        return "concertForm";
-    }
-
-    @PostMapping("/all/find/{id}/delete")
-    public String deleteConcert(@RequestParam String id) {
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<MessageResponse> deleteConcert(@RequestParam String id) {
         service.deleteConcert(id);
-        return "redirect:/planning";
+        return ResponseEntity.ok(new MessageResponse("Concert deleted successfully!"));
     }
 }

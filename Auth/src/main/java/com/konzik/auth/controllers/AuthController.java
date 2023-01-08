@@ -3,8 +3,8 @@ package com.konzik.auth.controllers;
 import com.konzik.auth.payload.request.LoginRequest;
 import com.konzik.auth.payload.request.SignupRequest;
 import com.konzik.auth.payload.response.JwtResponse;
-import com.konzik.auth.security.JwtUtils;
-import com.konzik.auth.services.UserDetailsImpl;
+import com.konzik.common.security.JwtUtils;
+import com.konzik.common.services.UserDetailsImpl;
 import com.konzik.common.entities.ERole;
 import com.konzik.common.entities.Role;
 import com.konzik.common.entities.User;
@@ -12,6 +12,7 @@ import com.konzik.common.payloads.MessageResponse;
 import com.konzik.common.repositories.RoleRepository;
 import com.konzik.common.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Import(JwtUtils.class)
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")

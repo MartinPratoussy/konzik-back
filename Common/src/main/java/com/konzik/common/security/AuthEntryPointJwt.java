@@ -1,4 +1,4 @@
-package com.konzik.auth.security;
+package com.konzik.common.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

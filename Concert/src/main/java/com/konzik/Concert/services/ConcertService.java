@@ -45,7 +45,7 @@ public class ConcertService {
                 .orElseThrow(() -> new NullPointerException("concert not found"));
     }
 
-    public Map<UUID, Long> getRecurrence() {
+    /*public Map<UUID, Long> getRecurrence() {
         Map<UUID, Long> concertRecurrence = new HashMap<>();
         for (Concert concert : allConcert()) {
             UUID concertId = concert.getId();
@@ -59,5 +59,5 @@ public class ConcertService {
         }
 
         return concertRecurrence;
-    }
+    }*/
 }

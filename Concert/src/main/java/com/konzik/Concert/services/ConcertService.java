@@ -1,5 +1,6 @@
 package com.konzik.Concert.services;
 
+import com.konzik.Concert.payload.request.AddConcertRequest;
 import com.konzik.common.entities.Concert;
 import com.konzik.common.repositories.ConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,17 @@ public class ConcertService {
         return repository.findAll();
     }
 
-    public void addConcert(Concert concert) {
-        if (repository.findById(concert.getId()).isPresent()) {
-            return;
-        }
-        System.out.println(concert.toString());
-        repository.save(concert);
+    public void addConcert(AddConcertRequest concert) {
+        Concert newConcert = new Concert(
+                concert.getDate(),
+                concert.getArtist(),
+                concert.getGenre(),
+                concert.getLocation(),
+                concert.getCity(),
+                concert.getCountry()
+        );
+
+        repository.save(newConcert);
     }
 
     public void deleteConcert(String id) {

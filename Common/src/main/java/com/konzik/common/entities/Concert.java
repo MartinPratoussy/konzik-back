@@ -19,9 +19,6 @@ public class Concert {
     private String city;
     private String country;
 
-    @ManyToMany(mappedBy = "planning")
-    private List<User> users = new ArrayList<>();
-
     public Concert() {
 
     }

@@ -1,4 +1,4 @@
-package com.konzik.auth.payload.response;
+package com.konzik.common.payloads;
 
 public class MessageResponse {
     private String message;

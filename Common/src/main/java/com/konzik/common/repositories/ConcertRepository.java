@@ -12,8 +12,6 @@ import java.util.UUID;
 @Repository
 public interface ConcertRepository extends JpaRepository<Concert, UUID> {
 
-    String concertApiUrl = "http//localhost:8080/concerts";
-
     Optional<Concert> findById(UUID id);
 
     @Query("SELECT COUNT(concert_id) FROM Concert c JOIN c.users u WHERE c.id = :id")

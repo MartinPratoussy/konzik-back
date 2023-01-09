@@ -18,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .addFilterBefore(authenticationJwtTokenFilter(), AuthTokenFilter.class)
+                .addFilterBefore(authenticationJwtTokenFilter(), BasicAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                    .antMatchers("/api/concert/**").permitAll()
-                    .antMatchers("/api/concert/test/**").permitAll()
+                .authorizeHttpRequests()
+                    .requestMatchers("/api/concert/**").permitAll()
+                    .requestMatchers("/api/concert/test/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

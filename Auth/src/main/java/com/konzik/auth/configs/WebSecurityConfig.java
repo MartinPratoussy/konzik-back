@@ -11,8 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,10 +26,7 @@ import java.util.List;
         AuthTokenFilter.class,
         AuthEntryPointJwt.class
 })
-@EnableGlobalMethodSecurity(
-        // securedEnabled = true,
-        // jsr250Enabled = true,
-        prePostEnabled = true)
+@EnableWebSecurity
 public class WebSecurityConfig {
 
     @Autowired
@@ -62,12 +59,15 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        System.out.println("Paul MEUNIER est un mauvais joueur de FIFA23");
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                    .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/auth/test/**").permitAll()
+                .authorizeHttpRequests()
+                    .requestMatchers("/api/auth/signin").permitAll()
+                    .requestMatchers("/api/auth/signup").permitAll()
+                    .requestMatchers("/api/auth/test/**").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

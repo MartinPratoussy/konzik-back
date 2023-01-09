@@ -1,6 +1,6 @@
-package com.konzik.auth.security;
+package com.konzik.common.security;
 
-import com.konzik.auth.services.UserDetailsImpl;
+import com.konzik.common.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

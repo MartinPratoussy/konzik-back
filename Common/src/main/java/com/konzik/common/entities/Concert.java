@@ -1,9 +1,8 @@
 package com.konzik.common.entities;
 
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
+
 import java.util.UUID;
 
 @Entity

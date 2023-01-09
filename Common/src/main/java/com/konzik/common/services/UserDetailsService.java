@@ -1,4 +1,4 @@
-package com.konzik.auth.services;
+package com.konzik.common.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

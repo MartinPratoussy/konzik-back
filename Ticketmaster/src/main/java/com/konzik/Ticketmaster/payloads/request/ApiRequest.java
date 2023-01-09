@@ -1,6 +1,7 @@
 package com.konzik.Ticketmaster.payloads.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.HashMap;
 import java.util.Map;
 

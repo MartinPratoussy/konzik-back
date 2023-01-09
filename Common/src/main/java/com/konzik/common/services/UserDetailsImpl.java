@@ -1,4 +1,4 @@
-package com.konzik.auth.services;
+package com.konzik.common.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.konzik.common.entities.User;

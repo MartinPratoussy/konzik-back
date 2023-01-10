@@ -9,7 +9,7 @@ stages:
   - build-images
   - deploy
 
-build-dependance:
+build-dependence:
   image: maven:3.8.5-openjdk-17
   stage: build-common
   script:

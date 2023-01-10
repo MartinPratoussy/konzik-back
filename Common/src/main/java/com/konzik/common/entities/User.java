@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import java.util.*;
 
 @Entity
-@Table(name = "konzik_users",
+@Table(name = "users",
     uniqueConstraints = {
             @UniqueConstraint(columnNames = "username"),
             @UniqueConstraint(columnNames = "email")

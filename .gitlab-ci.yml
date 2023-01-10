@@ -68,6 +68,8 @@ compile-chat:
   image: maven:3.8.5-openjdk-17
   stage: compile-services
   script:
+    - cd ./Common
+    - mvn install
     - cd ./Chat
     - mvn compile
     - mvn install -DskipTests
@@ -122,6 +124,8 @@ compile-ticketmaster:
   image: maven:3.8.5-openjdk-17
   stage: compile-services
   script:
+    - cd ./Common
+    - mvn install
     - cd ./Ticketmaster
     - mvn compile
     - mvn install -DskipTests

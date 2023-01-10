@@ -70,7 +70,7 @@ compile-chat:
   script:
     - cd ./Common
     - mvn install
-    - cd ./Chat
+    - cd ../Chat
     - mvn compile
     - mvn install -DskipTests
     - cd ./target
@@ -126,7 +126,7 @@ compile-ticketmaster:
   script:
     - cd ./Common
     - mvn install
-    - cd ./Ticketmaster
+    - cd ../Ticketmaster
     - mvn compile
     - mvn install -DskipTests
     - cd ./target

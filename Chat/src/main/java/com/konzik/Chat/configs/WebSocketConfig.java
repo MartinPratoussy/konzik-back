@@ -1,4 +1,4 @@
-package com.konzik.Chat.config;
+package com.konzik.Chat.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

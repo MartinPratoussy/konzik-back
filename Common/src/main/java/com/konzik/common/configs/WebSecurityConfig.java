@@ -1,4 +1,4 @@
-package com.konzik.Concert.configs;
+package com.konzik.common.configs;
 
 import com.konzik.common.security.AuthEntryPointJwt;
 import com.konzik.common.security.AuthTokenFilter;
@@ -37,7 +37,7 @@ public class WebSecurityConfig {
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    protected AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -59,22 +59,6 @@ public class WebSecurityConfig {
         List<AuthenticationProvider> providers = new ArrayList<>();
         providers.add(authenticationProvider());
         return new ProviderManager(providers);
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests()
-                    .requestMatchers("/api/concert/test/**").permitAll()
-                .anyRequest().authenticated();
-
-        http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
     }
 
     @Bean

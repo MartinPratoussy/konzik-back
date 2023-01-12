@@ -32,7 +32,9 @@ public class ChatWebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(corsFilter(), CsrfFilter.class);
+        http
+                .cors().and().csrf().disable()
+                .addFilterBefore(corsFilter(), CsrfFilter.class);
 
         return http.build();
     }

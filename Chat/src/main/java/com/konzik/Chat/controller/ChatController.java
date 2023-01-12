@@ -7,10 +7,15 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
-@Controller
+@RequestMapping("/api/chat")
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ChatController {
     @MessageMapping("/publicChat.register")
     @SendTo("/topic/public")

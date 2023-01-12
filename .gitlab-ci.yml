@@ -245,4 +245,4 @@ deploy-images:
 
   only:
     - dev
-#  when: manual
+  when: manual

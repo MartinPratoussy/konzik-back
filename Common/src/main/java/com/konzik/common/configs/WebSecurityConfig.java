@@ -35,20 +35,15 @@ import java.util.List;
 public class WebSecurityConfig {
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedOrigins(List.of("descours.cc"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    @Bean
-    protected CorsFilter corsFilter() {
-        return new CorsFilter(corsConfigurationSource());
     }
 
     @Autowired

@@ -29,7 +29,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Import(JwtUtils.class)
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

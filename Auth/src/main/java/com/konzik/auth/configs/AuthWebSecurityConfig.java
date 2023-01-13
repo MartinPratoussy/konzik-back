@@ -29,7 +29,7 @@ public class AuthWebSecurityConfig extends WebSecurityConfig {
                     .requestMatchers(HttpMethod.OPTIONS, "/api/auth/signup").permitAll()
                     .requestMatchers("/api/auth/signup").permitAll()
                     .requestMatchers(HttpMethod.OPTIONS, "/api/auth/test/**").permitAll()
-                    .requestMatchers("/api/auth/signup").permitAll()
+                    .requestMatchers("/api/auth/test/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

@@ -2,7 +2,9 @@ package com.konzik.Concert.services;
 
 import com.konzik.Concert.payload.request.AddConcertRequest;
 import com.konzik.common.entities.Concert;
+import com.konzik.common.entities.User;
 import com.konzik.common.repositories.ConcertRepository;
+import com.konzik.common.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,19 @@ import java.util.*;
 public class ConcertService {
 
     @Autowired
-    private final ConcertRepository repository;
+    private final ConcertRepository concertRepository;
 
     @Autowired
-    ConcertService(ConcertRepository repository) {
-        this.repository = repository;
+    private final UserRepository userRepository;
+
+    @Autowired
+    ConcertService(ConcertRepository concertRepository, UserRepository userRepository) {
+        this.concertRepository = concertRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Concert> allConcert() {
-        return repository.findAll();
+        return concertRepository.findAll();
     }
 
     public void addConcert(AddConcertRequest concert) {
@@ -33,16 +39,29 @@ public class ConcertService {
                 concert.getCountry()
         );
 
-        repository.save(newConcert);
+        concertRepository.save(newConcert);
+
+        User user = userRepository.findByUsername(concert.getRequestSenderUsername());
+        user.addConcertToPlanning(newConcert);
     }
 
     public void deleteConcert(String id) {
-        repository.deleteById(UUID.fromString(id));
+        concertRepository.deleteById(UUID.fromString(id));
     }
 
     public Concert findConcertById(UUID id) {
-        return repository.findById(id)
+        return concertRepository.findById(id)
                 .orElseThrow(() -> new NullPointerException("concert not found"));
+    }
+
+    public List<Concert> userPlanning(String username) {
+        User user = userRepository.findByUsername(username);
+        return user.getPlanning();
+    }
+
+    public void removeConcertFromUserPlanning(String username, UUID id) {
+        User user = userRepository.findByUsername(username);
+        user.removeConcertFromPlanning(id);
     }
 
     /*public Map<UUID, Long> getRecurrence() {

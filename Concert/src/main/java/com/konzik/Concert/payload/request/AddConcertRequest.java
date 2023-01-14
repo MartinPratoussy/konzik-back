@@ -16,6 +16,9 @@ public class AddConcertRequest {
     @NotBlank
     private String country;
 
+    @NotBlank
+    private String requestSenderUsername;
+
     public String getDate() {
         return date;
     }
@@ -62,5 +65,13 @@ public class AddConcertRequest {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getRequestSenderUsername() {
+        return requestSenderUsername;
+    }
+
+    public void setRequestSenderUsername(String requestSenderUsername) {
+        this.requestSenderUsername = requestSenderUsername;
     }
 }

@@ -16,7 +16,8 @@ Service path:
       "genre": "<genre>",
       "location": "<location>",
       "city": "<city>",
-      "country": "<country>"
+      "country": "<country>",
+      "username": "<username of the user that added the concert>"
     }
   	```
 - auth service: AUTH-SERVICE/api/auth

@@ -49,4 +49,15 @@ public class ConcertController {
         service.addConcert(addConcertRequest);
         return ResponseEntity.ok(new MessageResponse("Concert added successfully!"));
     }
+
+    @GetMapping("/users/{username}/all")
+    public List<Concert> userPlanning(@RequestParam String username) {
+        return service.userPlanning(username);
+    }
+
+    @DeleteMapping("/users/{username}/remove/{id}")
+    public ResponseEntity<MessageResponse> removeFromUserPlanning(@RequestParam String username, @RequestParam UUID id) {
+        service.removeConcertFromUserPlanning(username, id);
+        return ResponseEntity.ok(new MessageResponse("Concert removed from user planning successfully!"));
+    }
 }

@@ -5,8 +5,10 @@ Service path:
   - GET requests:
     - get all concerts: /all
     - get one specific concert by ID: /all/find/{id}
+    - get user planning: /users/{username}/all
   - DELETE request:
     - delete one specific concert by ID: /all/delete/{id}
+    - remove concert from user planning: /users/{username}/remove/{id}
   - POST requests:
     - add a new concert: /add
 	```json

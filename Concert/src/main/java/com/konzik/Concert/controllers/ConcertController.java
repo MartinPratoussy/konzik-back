@@ -39,7 +39,7 @@ public class ConcertController {
     }
 
     @DeleteMapping("/all/delete/{id}")
-    public ResponseEntity<MessageResponse> deleteConcert(@RequestParam String id) {
+    public ResponseEntity<MessageResponse> deleteConcert(@PathVariable String id) {
         service.deleteConcert(id);
         return ResponseEntity.ok(new MessageResponse("Concert deleted successfully!"));
     }
@@ -51,7 +51,7 @@ public class ConcertController {
     }
 
     @GetMapping("/users/{username}/all")
-    public List<Concert> userPlanning(@RequestParam String username) {
+    public List<Concert> userPlanning(@PathVariable String username) {
         return service.userPlanning(username);
     }
 

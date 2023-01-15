@@ -43,6 +43,7 @@ public class ConcertService {
 
         User user = userRepository.findByUsername(concert.getRequestSenderUsername());
         user.addConcertToPlanning(newConcert);
+        userRepository.save(user);
     }
 
     public void deleteConcert(String id) {

@@ -42,7 +42,7 @@ public class ConcertService {
         concertRepository.save(newConcert);
 
         User user = userRepository.findByUsername(concert.getRequestSenderUsername());
-        user.addConcertToPlanning(newConcert);
+        user.addConcertToPlanning(Optional.of(newConcert));
         userRepository.save(user);
     }
 
@@ -63,6 +63,14 @@ public class ConcertService {
     public void removeConcertFromUserPlanning(String username, UUID id) {
         User user = userRepository.findByUsername(username);
         user.removeConcertFromPlanning(id);
+        userRepository.save(user);
+    }
+
+    public void addConcertFromExisting(String username, UUID id) {
+        Optional<Concert> concert = concertRepository.findById(id);
+        User user = userRepository.findByUsername(username);
+        user.addConcertToPlanning(concert);
+        userRepository.save(user);
     }
 
     /*public Map<UUID, Long> getRecurrence() {

@@ -99,7 +99,7 @@ public class User {
         this.roles = roles;
     }
 
-    public void addConcertToPlanning(Concert concert) {
+    public void addConcertToPlanning(Optional<Concert> concert) {
         this.planning.add(concert);
     }
 

@@ -55,8 +55,14 @@ public class ConcertController {
         return service.userPlanning(username);
     }
 
+    @PostMapping("/users/{username}/add/{id}")
+    public ResponseEntity<MessageResponse> addFromExisting(@PathVariable String username, @PathVariable UUID id) {
+        service.addConcertFromExisting(username, id);
+        return ResponseEntity.ok(new MessageResponse("Existing concert added to user planning successfully!"));
+    }
+
     @DeleteMapping("/users/{username}/remove/{id}")
-    public ResponseEntity<MessageResponse> removeFromUserPlanning(@RequestParam String username, @RequestParam UUID id) {
+    public ResponseEntity<MessageResponse> removeFromUserPlanning(@PathVariable String username, @PathVariable UUID id) {
         service.removeConcertFromUserPlanning(username, id);
         return ResponseEntity.ok(new MessageResponse("Concert removed from user planning successfully!"));
     }

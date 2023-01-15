@@ -42,7 +42,7 @@ public class ConcertService {
         concertRepository.save(newConcert);
 
         User user = userRepository.findByUsername(concert.getRequestSenderUsername());
-        user.addConcertToPlanning(Optional.of(newConcert));
+        user.addConcertToPlanning(newConcert);
         userRepository.save(user);
     }
 
@@ -67,7 +67,7 @@ public class ConcertService {
     }
 
     public void addConcertFromExisting(String username, UUID id) {
-        Optional<Concert> concert = concertRepository.findById(id);
+        Concert concert = concertRepository.findConcertById(id);
         User user = userRepository.findByUsername(username);
         user.addConcertToPlanning(concert);
         userRepository.save(user);
